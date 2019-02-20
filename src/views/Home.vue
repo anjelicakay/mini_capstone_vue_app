@@ -1,22 +1,5 @@
 <template>
   <div class="home">
-    <h1>New Product</h1>
-    <div>
-      <div>
-        Name: <input v-model="newProductName">
-      </div>
-      <div>
-        Decription: <input v-model="newProductDescription">
-      </div>
-      <div>
-        Price: <input v-model="newProductPrice">
-      </div>
-      <div>
-        Image: <input v-model="newProductImageUrl">
-      </div>
-      <button v-on:click="createProduct">Create</button>
-    </div>
-
     <h1>All Products</h1>
     <div v-for="product in products">
       <h2>{{ product.name }}</h2>
@@ -55,9 +38,6 @@
   img{
     width: 250px;
   }
-  h2 {
-    color: #3cb371;
-  }
 </style>
 
 <script>
@@ -67,10 +47,6 @@ export default {
   data: function() {
     return {
       products: [],
-      newProductName: "",
-      newProductDescription: "",
-      newProductPrice: "",
-      newProductImageUrl: "",
       currentProduct: {}
     };
   },
@@ -87,21 +63,6 @@ export default {
       } else {
         this.currentProduct = inputProduct;
       }
-    },
-    createProduct: function (){
-      console.log("Create the Product..");
-      var params={
-                  name: this.newProductName,
-                  description: this.newProductDescription,
-                  price: this.newProductPrice,
-                  image_url: this.newProductImageUrl
-                  };
-      console.log(params);
-      axios.post("/api/products", params)
-        .then(response => {
-          console.log("Success", response.data);
-          this.products.push(response.data);
-        });
     },   
     updateProduct: function(inputProduct) {
       var params = {
